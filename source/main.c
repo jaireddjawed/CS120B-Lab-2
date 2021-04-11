@@ -1,7 +1,7 @@
 /*	Author: lab
  *  Partner(s) Name: Jaired Jawed
  *	Lab Section:
- *	Assignment: Lab #2  Exercise #2
+ *	Assignment: Lab #2  Exercise #1
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -16,39 +16,25 @@ int main(void) {
     /* Insert DDR and PORT initializations */
     
     DDRA = 0x00; PORTA = 0xFF;
-    DDRC = 0xFF; PORTC = 0x00;
+    DDRB = 0xFF; PORTB = 0x00;
 
-   // create individual pin variables 
     unsigned char pinA0 = 0x00;
     unsigned char pinA1 = 0x00;
-    unsigned char pinA2 = 0x00;
-    unsigned char pinA3 = 0x00;
-
-    // tmp variable for PORTC
-    unsigned char cntavail = 0x00;
 
     while (1) {
-	   pinA0 = PINA & 0x01;
-	   pinA1 = PINA & 0x02;
-	   pinA2 = PINA & 0x04;
-	   pinA3 = PINA & 0x08;
+	// read the individual pins of A
+	pinA0 = PINA & 0x01;
+	pinA1 = PINA & 0x02;
 
-	   cntavail = 0x00;
-
-	   if (pinA0 == 0x01) {
-		cntavail += 1;
-	   }
-	   if (pinA1 == 0x01) {
-		cntavail += 1;
-	   }
-	   if (pinA2 == 0x01) {
-		cntavail += 1;
-	   }
-	   if (pinA3 == 0x01) {
-		cntavail += 1;
-	   }
-
-	   PORTC = cntavail;
+    	// if PA0 is 1 and PA1 is 0
+	// set PB0 to 1
+	// make A the input and B the output
+	if (pinA0 == 0x01 && pinA1 == 0x00) {
+		PORTB = 0x01;
+	}		
+	else {
+		PORTB = 0x00;
+	}
     }
  
     return 1;
