@@ -1,7 +1,7 @@
 /*	Author: lab
  *  Partner(s) Name: Jaired Jawed
  *	Lab Section:
- *	Assignment: Lab #2  Exercise #1
+ *	Assignment: Lab #2  Exercise #2
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -16,25 +16,34 @@ int main(void) {
     /* Insert DDR and PORT initializations */
     
     DDRA = 0x00; PORTA = 0xFF;
-    DDRB = 0xFF; PORTB = 0x00;
+    DDRC = 0xFF; PORTC = 0x00;
 
-    unsigned char pinA0 = 0x00;
-    unsigned char pinA1 = 0x00;
+    unsigned char tmpA = 0x00;
 
     while (1) {
-	// read the individual pins of A
-	pinA0 = PINA & 0x01;
-	pinA1 = PINA & 0x02;
+    	tmpA = PINA;
 
-    	// if PA0 is 1 and PA1 is 0
-	// set PB0 to 1
-	// make A the input and B the output
-	if (pinA0 == 0x01 && pinA1 == 0x00) {
-		PORTB = 0x01;
-	}		
-	else {
-		PORTB = 0x00;
+	// all spots are available
+	if (tmpA == 0x00) {
+		PORTC = 0x04;
 	}
+	// one spot is taken
+	else if (tmpA == 0x01 || tmpA == 0x02 || tmpA == 0x04 || tmpA == 0x08) {
+		PORTC = 0x03;
+	}
+	// two spots are taken
+	else if (tmpA == 0x03 || tmpA == 0x05 || tmpA == 0x06 || tmpA == 0x09 || tmpA == 0x0A || tmpA == 0x0C) {
+		PORTC = 0x02;
+	}
+	// three spots are taken
+	else if (tmpA == 0x07 || tmpA == 0x0B || tmpA == 0x0D || tmpA == 0x0E) {
+		PORTC = 0x01;
+	}
+	// no spots are available
+	else {
+		PORTC = 0x00;
+	}
+
     }
  
     return 1;

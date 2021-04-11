@@ -18,37 +18,32 @@ int main(void) {
     DDRA = 0x00; PORTA = 0xFF;
     DDRC = 0xFF; PORTC = 0x00;
 
-   // create individual pin variables 
-    unsigned char pinA0 = 0x00;
-    unsigned char pinA1 = 0x00;
-    unsigned char pinA2 = 0x00;
-    unsigned char pinA3 = 0x00;
-
-    // tmp variable for PORTC
-    unsigned char cntavail = 0x00;
+    unsigned char tmpA = 0x00;
 
     while (1) {
-	   pinA0 = PINA & 0x01;
-	   pinA1 = PINA & 0x02;
-	   pinA2 = PINA & 0x04;
-	   pinA3 = PINA & 0x08;
+    	tmpA = PINA;
 
-	   cntavail = 0x00;
+	// all spots are available
+	if (tmpA == 0x00) {
+		PORTC = 0x04;
+	}
+	// one spot is taken
+	else if (tmpA == 0x01 || tmpA == 0x02 || tmpA == 0x04 || tmpA == 0x08) {
+		PORTC = 0x03;
+	}
+	// two spots are taken
+	else if (tmpA == 0x03 || tmpA == 0x05 || tmpA == 0x06 || tmpA == 0x09 || tmpA == 0x0A || tmpA == 0x0C) {
+		PORTC = 0x02;
+	}
+	// three spots are taken
+	else if (tmpA == 0x07 || tmpA == 0x0B || tmpA == 0x0D || tmpA == 0x0E) {
+		PORTC = 0x01;
+	}
+	// no spots are available
+	else {
+		PORTC = 0x00;
+	}
 
-	   if (pinA0 == 0x01) {
-		cntavail += 1;
-	   }
-	   if (pinA1 == 0x01) {
-		cntavail += 1;
-	   }
-	   if (pinA2 == 0x01) {
-		cntavail += 1;
-	   }
-	   if (pinA3 == 0x01) {
-		cntavail += 1;
-	   }
-
-	   PORTC = cntavail;
     }
  
     return 1;
