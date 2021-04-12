@@ -28,7 +28,7 @@ int main(void) {
     unsigned char tmpD2 = 0x00;
     unsigned char tmpD3 = 0x00;
 
-    unsigned char total = 0x00;
+    unsigned short total = 0x0000;
  
     while (1) {
 	tmpA = PINA;
@@ -40,7 +40,7 @@ int main(void) {
 
 	total = tmpA + tmpB + tmpC;
 
-	if (total <= 0x8C) {
+	if (total <= 0x008C) {
 		tmpD = 0x00;
 	}
 	else {
@@ -52,7 +52,7 @@ int main(void) {
 		tmpD2 = 0x02;
 	}
 
-	tmpD3 = (total & 0xFC) | tmpD | tmpD2;
+	tmpD3 = (total & 0x00FC) | tmpD | tmpD2;
 	PORTD = tmpD3;
 
     }
