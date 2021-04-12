@@ -16,35 +16,29 @@
 # altered in between executions (unless preconditions are used).
 tests = [
     {
-        'description': 'All parking spaces are available.',
+        'description': 'Garage open, night time. PINA0: 1, PINA1: 0 => PORTB:0x01',
+        'steps': [{ 'inputs': [('PINA', 0x01)], 'iterations': 5 }],
+        'expected': [('PORTB', 0x01)]
+    },
+    {
+        'description': 'Garage closed, day time. PINA0: 0, PINA1: 0 => PORTB:0x00',
         'steps': [{ 'inputs': [('PINA', 0x00)], 'iterations': 5 }],
-        'expected': [('PORTC', 0x04)]
+        'expected': [('PORTB', 0x00)]
     },
     {
-        'description': 'One parking space is available.',
-        'steps': [{ 'inputs': [('PINA', 0x0E)], 'iterations': 5 }],
-        'expected': [('PORTC', 0x01)]
+        'description': 'Garage closed, night time. PINA0: 0, PINA1: 1 => PORTB:0x00',
+        'steps': [{ 'inputs': [('PINA', 0x02)], 'iterations': 5 }],
+        'expected': [('PORTB', 0x00)]
     },
     {
-        'description': 'Two parking spaces are available.',
-        'steps': [{ 'inputs': [('PINA', 0x09)], 'iterations': 5 }],
-        'expected': [('PORTC', 0x02)]
-    },
-    {
-         'description': 'Three parking spaces are available.',
-         'steps': [{ 'inputs': [('PINA', 0x08)], 'iterations': 5 }],
-         'expected': [('PORTC', 0x03)]
-    },
-    {
-         'description': 'No parking spaces are available.',
-         'steps': [{ 'inputs': [('PINA', 0x0F)], 'iterations': 5 }],
-         'expected': [('PORTC', 0x80)]
+        'description': 'Garage open, day time. PINA0: 1, PINA1: 1 => PORTB:0x00',
+        'steps': [{ 'inputs': [('PINA', 0x03)], 'iterations': 5 }],
+        'expected': [('PORTB', 0x00)]
     }
 ]
-
 
 # Optionally you can add a set of "watch" variables these need to be global or static and may need
 # to be scoped at the function level (for static variables) if there are naming conflicts. The 
 # variables listed here will display everytime you hit (and stop at) a breakpoint
-watch = ['PORTC']
+watch = ['PORTB']
 

@@ -24,7 +24,7 @@ int main(void) {
     while (1) {
 	// read the individual pins of A
 	pinA0 = PINA & 0x01;
-	pinA2 = PINA & 0x02;
+	pinA1 = PINA & 0x02;
 
     	// if PA0 is 1 and PA1 is 0
 	// set PB0 to 1
