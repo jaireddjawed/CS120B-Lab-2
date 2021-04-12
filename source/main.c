@@ -48,11 +48,11 @@ int main(void) {
 	}
 
 
-	if ((tmpA > tmpC) && (tmpA - tmpC > 0x50) || (tmpC - tmpA) > 0x50) {
+	if ((tmpA - tmpC > 0x50) || (tmpC - tmpA > 0x50)) {
 		tmpD2 = 0x02;
 	}
 
-	tmpD3 = (total & 0x00FC) | tmpD | tmpD2;
+	tmpD3 = (total << 2) | tmpD2 | tmpD;
 	PORTD = tmpD3;
 
     }
