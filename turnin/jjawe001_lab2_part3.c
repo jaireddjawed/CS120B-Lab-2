@@ -1,7 +1,7 @@
 /*	Author: lab
  *  Partner(s) Name: Jaired Jawed
  *	Lab Section:
- *	Assignment: Lab #2  Exercise #2
+ *	Assignment: Lab #2  Exercise #3
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -18,6 +18,7 @@ int main(void) {
     DDRA = 0x00; PORTA = 0xFF;
     DDRC = 0xFF; PORTC = 0x00;
 
+    // input for PINA
     unsigned char tmpA = 0x00;
 
     while (1) {
@@ -39,11 +40,11 @@ int main(void) {
 	else if (tmpA == 0x07 || tmpA == 0x0B || tmpA == 0x0D || tmpA == 0x0E) {
 		PORTC = 0x01;
 	}
-	// no spots are available
+	// all spots are taken
 	else if (tmpA == 0x0F) {
-		PORTC = 0x00;
+		// set port C7 to 1 and everything else to 0 if no spots 
+		PORTC = 0x80;
 	}
-
     }
  
     return 1;

@@ -31,6 +31,11 @@ tests = [
         'expected': [('PORTC', 0x02)]
     },
     {
+        'description': 'Three parking spaces are available.',
+        'steps': [{ 'inputs': [('PINA', 0x08)], 'iterations': 5 }],
+        'expected': [('PORTC', 0x03)]
+    },
+    {
         'description': 'No parking spaces are available.',
         'steps': [{ 'inputs': [('PINA', 0x0F)], 'iterations': 5 }],
         'expected': [('PORTC', 0x00)]
