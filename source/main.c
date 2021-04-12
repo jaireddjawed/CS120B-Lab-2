@@ -20,6 +20,10 @@ int main(void) {
     DDRC = 0x00; PORTC = 0xFF;
     DDRD = 0xFF; PORTD = 0X00;
 
+    unsigned char tmpA = 0x00;
+    unsigned char tmpB = 0x00;
+    unsigned char tmpC = 0x00;
+ 
     unsigned char tmpD = 0x00;
     unsigned char tmpD2 = 0x00;
     unsigned char tmpD3 = 0x00;
@@ -27,25 +31,30 @@ int main(void) {
     unsigned char total = 0x00;
  
     while (1) {
+	tmpA = PINA;
+	tmpB = PINB;
+	tmpC = PINC;
+
 	tmpD = 0x00;
+	tmpD2 = 0x00;
 
-	// add up all weights
-	total = PINA + PINB + PINC;
+	total = tmpA + tmpB + tmpC;
 
-	// total weight is less than 140kg
 	if (total <= 0x8C) {
 		tmpD = 0x00;
 	}
-	else if (total > 0x8C) {
+	else {
 		tmpD = 0x01;
-	}	
+	}
 
-	if ((PINA - PINC) > 0x50 || (PINC - PINA) > 0x50) {
+
+	if ((tmpA > tmpC) && (tmpA - tmpC > 0x50) || (tmpC - tmpA) > 0x50) {
 		tmpD2 = 0x02;
-	}	
-	
+	}
+
 	tmpD3 = (total & 0xFC) | tmpD | tmpD2;
-	PORTD = tmpD3;	
+	PORTD = tmpD3;
+
     }
  
     return 1;
